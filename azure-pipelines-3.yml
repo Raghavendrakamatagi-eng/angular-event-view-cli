@@ -10,6 +10,8 @@ trigger:
 
 pool: KMT
 
+steps:
+
 - script: |
     echo Downloading WhiteSource Unified Agent
     curl -LJO https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar
