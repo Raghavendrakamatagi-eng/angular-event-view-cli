@@ -10,17 +10,6 @@ trigger:
 
 pool: KMT
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '12.x'
-
-
-- task: Npm@1
-  displayName: 'NPM Install'
-  inputs:
-    customCommand: install --package-lock
-
 - script: |
     echo Downloading WhiteSource Unified Agent
     curl -LJO https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar
