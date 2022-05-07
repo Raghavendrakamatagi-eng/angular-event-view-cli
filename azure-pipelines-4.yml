@@ -6,8 +6,7 @@
 trigger:
 - main
 
-pool:
-  vmImage: KMT
+pool: KMT
 
 steps:
 - task: NodeTool@0
