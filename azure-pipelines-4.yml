@@ -8,12 +8,6 @@ trigger:
 
 pool: KMT
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
 - script: |
 - task: SynopsysDetectTask@7
   inputs:
@@ -22,3 +16,11 @@ steps:
       --detect.project.name="AzureTest"
       --detect.project.version.name="1.0"
     DetectVersion: '7.0.0'
+    
+  steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+
