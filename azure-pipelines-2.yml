@@ -8,19 +8,12 @@ trigger:
 
 pool: KMT
 
-steps:
-- task: synopsys-detect.synopsys-detect.synopsys-detect-task.SynopsysDetectTask@7
-  displayName: 'Run Synopsys Detect for your build '
+steps: 
+- task: SynopsysDetectTask@7
   inputs:
-    BlackDuckService: '$(Parameters.BlackDuckService)'
+    BlackDuckService: 'HUBINT'
     DetectArguments: |
-     
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+      set DETECT_LATEST_RELEASE_VERSION=7.0.0                                                                      
+      powershell "[Net.ServicePointManager]::SecurityProtocol = 'tls12'; irm https://detect.synopsys.com/detect7.ps1?$(Get-Random) | iex; detect"
+      --detect.timeout="300" --detect.project.name="NPMTest_azure" --detect.project.version.name="10.0"  --detect.detector.search.depth=10 --blackduck.trust.cert=true --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" --detect.blackduck.signature.scanner.upload.source.mode="true" --detect.blackduck.signature.scanner.license.search="true" --detect.blackduck.signature.scanner.copyright.search="true" --detect.tools=SIGNATURE_SCAN --detect.tools=DETECTOR
+    DetectVersion: '7.0.0'
