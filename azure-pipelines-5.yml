@@ -17,20 +17,9 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: SynopsysDetectTask@7
+- task: CmdLine@2
   inputs:
-    DetectArguments: |
-      --blackduck.url=https://foss-gsep.i.mercedes-benz.com 
-      --blackduck.api.token=NzVkYzQzNjYtNjhmOC00ZTM3LWJhZDktM2I1YmE5MWRkZjRjOjM5MzdiODdlLTljY2ItNDM5ZS1hZTg2LTU3ODEyNjg1NjI2OQ==
-      --detect.project.name="NPMTest_azure" 
-      --detect.project.version.name="3.0"  
-      --detect.detector.search.depth=10  
-      --detect.timeout="300" 
-      --blackduck.trust.cert=true 
-      --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" 
-      --detect.blackduck.signature.scanner.upload.source.mode="true" 
-      --detect.blackduck.signature.scanner.license.search="true" 
-      --detect.blackduck.signature.scanner.copyright.search="true" 
-      --detect.tools=SIGNATURE_SCAN 
-      --detect.tools=DETECTOR
-    DetectVersion: 'latest'
+    script: |
+      set DETECT_LATEST_RELEASE_VERSION=7.0.0                                                                      
+            powershell "[Net.ServicePointManager]::SecurityProtocol = 'tls12'; irm https://detect.synopsys.com/detect7.ps1?$(Get-Random) | iex; detect"
+            --detect.project.name="NPMTest_azure" --detect.project.version.name="9.0"  --detect.detector.search.depth=10  --detect.timeout="300" --blackduck.trust.cert=true --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" --detect.blackduck.signature.scanner.upload.source.mode="true" --detect.blackduck.signature.scanner.license.search="true" --detect.blackduck.signature.scanner.copyright.search="true" --detect.tools=SIGNATURE_SCAN --detect.tools=DETECTOR
